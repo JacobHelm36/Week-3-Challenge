@@ -12,12 +12,13 @@ class ListService {
     _store.State.lists.push(newList)
     console.log(newList.id)
     _store.saveState()
+    console.log(_store.State.lists, " from store")
   }
 
-  addTodo(newTodo, id) {
+  addTodo(obj, id) {
     //how to assign a unique id?
 
-    newTodo = new ToDoList(newTodo)
+    let newTodo = new ToDoList(obj)
     let list = _store.State.lists.find(list => list.id == id)
     list.ToDoList.push(newTodo)
     //.find goes thru a list and if true item is returned to variable
@@ -27,15 +28,20 @@ class ListService {
   }
 
   deleteEntry(id) {
-    let lists = _store.State.lists.filter(lists => lists.id !== id)
-    _store.State.lists = lists
-    _store.saveState()
-  }
-
-  deleteList(id) {
-    let listIndex = _store.State.lists.findIndex(lists => lists.id == id)
+    //change your functions around, this is for the whole entry not tasks
+    let listIndex = _store.State.lists.findIndex(ll => ll.id == id)
     _store.State.lists.splice(listIndex, 1)
-    _store.saveState()
+        _store.saveState()
+      }
+
+  deleteTask(taskId, listId) {
+    window.confirm("are you sure") 
+    if (true) {
+      debugger
+      let list = _store.State.lists.find(l => l.id == listId)
+      let task = list.ToDoList.findIndex(p => p.id == taskId) 
+      list.ToDoList.splice(task, 1)}
+      _store.saveState()
   }
 
   //TODO  Here is where we handle all of our business logic,

@@ -1,5 +1,6 @@
 import List from "./Models/List.js";
-
+import ToDoList from "./Models/ToDo.js";
+//should I make a new list for list items?
 let _state = {
   /** @type {List[]} */
   lists: []
@@ -12,6 +13,9 @@ function _loadState() {
   let data = JSON.parse(localStorage.getItem("TaskMaster"));
   if (data) {
     data.lists = data.lists.map(l => new List(l));
+    data.lists.forEach(l=>{
+      l.ToDoList = l.ToDoList.map(elem=> new ToDoList(elem))
+    })
     _state = data;
   }
 }

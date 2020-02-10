@@ -25,7 +25,6 @@ export default class ListController {
   }
   addList(event) {
     event.preventDefault();
-
     let form = event.target;
 
     let newList = {
@@ -33,15 +32,16 @@ export default class ListController {
     }
     ListService.addList(newList)
     _drawLists();
+
   }
 
   addToDo(event, id) {
-    
     event.preventDefault();
     let form = event.target;
 
     let newTodo = {
-      toDoName: form.toDoName.value
+      toDoName: form.toDoName.value,
+      listId: id
     }
     ListService.addTodo(newTodo, id);
     _drawLists()
@@ -53,8 +53,9 @@ export default class ListController {
     _drawLists()
   } 
 
-  deleteList(id) {
-    ListService.deleteList(id)
+  deleteTask(taskId, listId) {
+    console.log(taskId, listId)
+    ListService.deleteTask(taskId, listId)
     _drawLists()
   }
   //TODO: Your app will need the ability to create, and delete both lists and listItems
